@@ -16,6 +16,9 @@ public:
 void applyInterest(Account& account) {
     // TODO: if the account is acctive and the balance is positive, then increase the account's balance by 1%
     // otherwise, just return without modification
+    if (account.active && account.balance > 0) {
+        account.balance *= 1.01;
+    }
     return;
 }
 
