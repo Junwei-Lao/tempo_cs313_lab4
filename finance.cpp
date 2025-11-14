@@ -90,13 +90,14 @@ int main(int argc, char* argv[]) {
                 // TODO: Create a ThreadPool and add all tasks to it
                 ThreadPool tp(numThreads);
                 for (int i = 0; i < max_accounts; ++i) {
-                    tp.enqueue(applyInterest(accounts[i]));
+                    tp.enqueue(std::bind(applyInterest, accounts[i]));
                 }
 
             } catch (const std::exception& e) {
                 // TODO: Add error handling and set the response to have a false success value
                 resp.success = false;
-                std::cerr << "Error creating ThreadPool: " << e.what() << std::endl;
+                //std::cerr << "Error creating ThreadPool: " << e.what() << std::endl;
+                resp.message = "Error applying interest: " + std::string(e.what());
             }
         }
         else {
