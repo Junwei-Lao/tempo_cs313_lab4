@@ -90,7 +90,7 @@ int main(int argc, char* argv[]) {
                 // TODO: Create a ThreadPool and add all tasks to it
                 ThreadPool tp(numThreads);
                 for (int i = 0; i < max_accounts; ++i) {
-                    tp.enqueue(std::bind(applyInterest, accounts[i]));
+                    tp.enqueue(std::bind(applyInterest, std::ref(accounts[i])));
                 }
 
             } catch (const std::exception& e) {
