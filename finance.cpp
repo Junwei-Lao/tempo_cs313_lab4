@@ -88,8 +88,15 @@ int main(int argc, char* argv[]) {
                 int numThreads = 2;
                 if (r.amount > 0) numThreads = r.amount;
                 // TODO: Create a ThreadPool and add all tasks to it
+                ThreadPool tp(numThreads);
+                for (int i = 0; i < max_accounts; ++i) {
+                    tp.enqueue(applyInterest(accounts[i]));
+                }
+
             } catch (const std::exception& e) {
                 // TODO: Add error handling and set the response to have a false success value
+                resp.success = false;
+                std::cerr << "Error creating ThreadPool: " << e.what() << std::endl;
             }
         }
         else {
